@@ -1,0 +1,20 @@
+<h1> Interns </h1>
+{%if interns%}
+    <ul>
+        {% for intern in interns %}
+        <li> <a href = "/{{intern.id}}/">{{intern.name}}</a></li>
+        {% endfor %}
+    </ul>
+{%else%}
+    <p> No interns </p>
+{%endif%}
+<h1> Roles </h1>
+{%if roles%}
+    <ul>
+        {% for role in roles %}
+        <li>{{role.name}}</li>
+        {% endfor %}
+    </ul>
+{%else%}
+    <p> No roles </p>
+{%endif%}

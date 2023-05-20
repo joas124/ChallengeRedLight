@@ -1,0 +1,17 @@
+{%if intern%}
+    <img src="../{{intern.avatar}}" alt="Profile Picture" width="200" height="200">
+    <ul>
+        <li> Name: {{intern.name}} </li>
+        <li> Email: {{intern.email}} </li>
+        <li> Phone: {{intern.number}} </li>
+        <li> Role(s): </li>
+        {% for role in intern.roles.all %}
+            <ul>
+                <li> {{role.name}} </li>
+            </ul>
+        {% endfor %}
+        <li> Status: {{intern.status}} </li>
+    </ul>
+{%else%}
+    <p> No intern with id {{id}} </p>
+{%endif%}
