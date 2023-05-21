@@ -5,12 +5,15 @@
         <li> Email: {{intern.email}} </li>
         <li> Phone: {{intern.number}} </li>
         <li> Role(s): </li>
-        {% for role in intern.roles.all %}
-            <ul>
-                <li> {{role.name}} </li>
-            </ul>
-        {% endfor %}
-        <li> Status: {{intern.status}} </li>
+        {% if rolestatus %}
+            {% for role in rolestatus%}
+                <ul>
+                    <li> {{role.role}} - {{role.status}} </li>
+                </ul>
+            {% endfor %}
+        {% else %}
+           <ul> No roles assigned </ul>
+        {% endif %}
     </ul>
 {%else%}
     <p> No intern with id {{id}} </p>

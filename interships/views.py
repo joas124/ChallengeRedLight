@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
-from .models import Intern, Role
+from .models import Intern, Role, RoleStatus
 
 # Create your views here.
 def interns_list(request):
@@ -10,7 +10,7 @@ def interns_list(request):
 
 def intern_detail(request, pk):
     intern = get_object_or_404(Intern, pk=pk)
-    return render(request, 'interships/intern_detail.html', {'intern': intern})
+    return render(request, 'interships/intern_detail.html', {'intern': intern, 'rolestatus': RoleStatus.objects.filter(intern=intern)})
 
 def avatar(request, path):
     try:
