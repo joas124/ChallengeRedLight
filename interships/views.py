@@ -4,13 +4,19 @@ from .models import Intern, Role, RoleStatus
 
 # Create your views here.
 def interns_list(request):
-    interns = Intern.objects.all()
-    roles = Role.objects.all()
-    return render(request, 'interships/homepage.html', {'interns': interns, 'roles': roles})
+    context = {
+        'interns': Intern.objects.all(), 
+        'roles': Role.objects.all(),
+    }
+    return render(request, 'interships/homepage.html', context)
 
 def intern_detail(request, pk):
     intern = get_object_or_404(Intern, pk=pk)
-    return render(request, 'interships/intern_detail.html', {'intern': intern, 'rolestatus': RoleStatus.objects.filter(intern=intern)})
+    context = {
+        'intern': intern,
+        'rolestatus': RoleStatus.objects.filter(intern=intern),
+    }
+    return render(request, 'interships/intern_detail.html', context)
 
 def avatar(request, path):
     try:
@@ -20,6 +26,11 @@ def avatar(request, path):
         raise Http404
 
 def intern_edit(request, pk):
-    return HttpResponse("<h1>On The Works!!</h1>")
+    intern = get_object_or_404(Intern, pk=pk)
+    context = {
+        'intern': intern,
+        'roles': Role.objects.all(),
+    }
+    return render(request, 'interships/intern_edit.html', context)
 def insert(request):
     return HttpResponse("<h1>On The Works!!</h1>")
