@@ -1,6 +1,7 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Intern, Role, RoleStatus
+from .forms import InternForm, RoleForm
 
 # Create your views here.
 def interns_list(request):
@@ -18,6 +19,14 @@ def intern_detail(request, pk):
     }
     return render(request, 'interships/intern_detail.html', context)
 
+def role_detail(request, pk):
+    role = get_object_or_404(Role, pk=pk)
+    context = {
+        'role': role,
+        'rolestatus': RoleStatus.objects.filter(role=role),
+    }
+    return render(request, 'interships/role_detail.html', context)
+
 def avatar(request, path):
     try:
         with open('./avatars/' + path, 'rb') as f:
@@ -32,5 +41,23 @@ def intern_edit(request, pk):
         'roles': Role.objects.all(),
     }
     return render(request, 'interships/intern_edit.html', context)
-def insert(request):
-    return HttpResponse("<h1>On The Works!!</h1>")
+
+def insertIntern(request):
+    if request.method == 'GET':
+        form = InternForm()
+        return render(request, 'interships/insert.html', {'form': form})
+    elif request.method == 'POST':
+        form = InternForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('interns_list')
+        else:
+            return render(request, 'interships/insert.html', {'form': form})
+
+def insertRole(request):
+    if request.method == 'GET':
+        Roles = Role.objects.all()
+        form = RoleForm(request.POST)
+        return render(request, 'interships/insert.html', {'form': form})
+    elif request.method == 'POST':
+        pass

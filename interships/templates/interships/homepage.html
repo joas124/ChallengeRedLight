@@ -1,34 +1,40 @@
-{%load static%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Internship Manager</title>
-    <link rel="stylesheet" href="{% static 'homepage.css' %}">
-</head>
-<body>
-    <h1> Interns </h1>
+{% extends 'interships/base.html' %}
+{% load static %}
+{% comment %} {%block head%}
+    <link rel = "stylesheet" href = "{%static 'homepage.css'%}">
+{%endblock%} {% endcomment %}
+{%block head%}
+    <script src = "{%static 'homepage.js'%}"></script>
+{%endblock%}
+{%block content%}
+    <div class = "flex justify-center font-bold text-3xl">
+        <h1> Interns </h1>
+    </div>
+    <div class = "flex justify-center text-xl overflow-auto h-1/2">
     {%if interns%}
-    <ul>
-        {% for intern in interns %}
-        <li> <a href = "/{{intern.id}}/">{{intern.name}}</a>  -- <button onclick = editUser({{intern.id}})> Edit </button></li>
-        {% endfor %}
-    </ul>
-    {%else%}
-    <p> No interns </p>
-    {%endif%}
-    <hr>
-    <h1> Roles </h1>
-    {%if roles%}
-    <ul>
-        {% for role in roles %}
-            <li>{{role.name}}</li>
+        <ul>
+            {% for intern in interns %}
+            <li> <a href = "/intern/{{intern.id}}/">{{intern.name}}</a>  -- <button onclick = 'editUser({{intern.id}})'> Edit </button></li>
             {% endfor %}
         </ul>
-        {%else%}
+    {%else%}
+        <p> No interns </p>
+    {%endif%}
+    </div>
+    <hr>
+    <div class = "flex justify-center font-bold text-3xl">
+        <h1> Roles </h1>
+    </div>
+    <div class = "flex justify-center text-xl overflow-auto h-1/2">
+    {%if roles%}
+        <ul>
+            {% for role in roles %}
+                <li><a href = "/role/{{role.id}}/">{{role.name}}</a></li>
+            {% endfor %}
+        </ul>
+    {%else%}
         <p> No roles </p>
-        {%endif%}
-        <h1> <a href = "/insert/"> Insert Intern </a> </h1>
-</body>
-<script src = "{% static 'homepage.js' %}"></script>
-</html>
+    {%endif%}
+    </div>
+    <hr>
+{%endblock%}

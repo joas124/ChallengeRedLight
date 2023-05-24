@@ -7,5 +7,4 @@ function cancel(){
     if(confirm("Are you sure you want to cancel?")){
         window.history.back();
     }
-    
 }

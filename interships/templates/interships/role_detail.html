@@ -1,0 +1,22 @@
+{% extends 'interships/base.html'%}
+{% load static %}
+{% block head %}
+{% comment %}  {% endcomment %}
+{% endblock %}
+{% block content %}
+<div class ="flex justify-center text-3xl overflow-auto h-1/2">
+    <h1> {{role.name}} </h1>
+</div>
+<div class = "flex justify-center items-center object-center">
+{% if rolestatus %}
+    {% for status in rolestatus%}
+        <ul>
+            <li> <a href = {% url 'intern_detail' status.intern%}>{{status.intern}} </a>- {{status.status}} </li>
+        </ul>
+    {% endfor %}
+{% else %}
+    <ul> No interns assigned </ul>
+{% endif %}
+</ul>
+</div>
+{% endblock %}

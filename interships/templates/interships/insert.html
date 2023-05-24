@@ -1,0 +1,14 @@
+{% extends 'interships/base.html' %}
+{% load static %}
+{%block head%}
+    <script src = "{%static 'insert.js'%}"></script>
+{%endblock%}
+{%block content%}
+    <br>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button id = 'submit' type="submit">Submit</button>
+        <button id = 'cancel' type="button" onclick = 'cancel()'>Cancel</button>
+    </form>
+{%endblock%}

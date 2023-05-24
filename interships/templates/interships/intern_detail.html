@@ -1,5 +1,8 @@
-{%if intern%}
-    <img src="../{{intern.avatar}}" alt="Profile Picture" width="200" height="200">
+{% extends 'interships/base.html' %}
+{% load static %}
+{%block content%}
+<div class = "flex justify-center items-center object-center">
+    <img src="../{{intern.avatar}}" alt="Profile Picture" width="200" height="200" class = "rounded-full">
     <ul>
         <li> Name: {{intern.name}} </li>
         <li> Email: {{intern.email}} </li>
@@ -12,9 +15,8 @@
                 </ul>
             {% endfor %}
         {% else %}
-           <ul> No roles assigned </ul>
+        <ul> No assigned roles </ul>
         {% endif %}
     </ul>
-{%else%}
-    <p> No intern with id {{id}} </p>
-{%endif%}
+</div>
+{%endblock%}
