@@ -56,8 +56,12 @@ def insertIntern(request):
 
 def insertRole(request):
     if request.method == 'GET':
-        Roles = Role.objects.all()
-        form = RoleForm(request.POST)
+        form = RoleForm()
         return render(request, 'interships/insert.html', {'form': form})
     elif request.method == 'POST':
-        pass
+        form = RoleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('interns_list')
+        else:
+            return render(request, 'interships/insert.html', {'form': form})
