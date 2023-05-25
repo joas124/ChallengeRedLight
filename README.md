@@ -100,7 +100,7 @@ This project was made for the [RedLight Summer Internship 2023 - Dev Challenge](
     python manage.py runserver
     ```
 
-    Now, you can access the application at [`http://localhost:8000/`](`http://localhost:8000/`).
+    Now, you can access the application at [http://localhost:8000/](`http://localhost:8000/`).
 
 
 ## References
