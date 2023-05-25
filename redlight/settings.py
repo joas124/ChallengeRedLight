@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'redlight.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'RedLightChallenge',
+        'NAME': 'redlightchallenge',
         'USER': 'redlight',
         'PASSWORD': 'redlight',
         'HOST': 'localhost',
