@@ -10,3 +10,8 @@ class RoleForm(forms.ModelForm):
     class Meta:
         model = Role
         fields = '__all__'
+
+class RoleStatusForm(forms.ModelForm):
+    class Meta:
+        model = RoleStatus
+        fields = '__all__'

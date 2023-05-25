@@ -1,22 +1,28 @@
 {% extends 'interships/base.html' %}
-{% load static %}
 {%block content%}
 <div class = "flex justify-center items-center object-center">
-    <img src="../{{intern.avatar}}" alt="Profile Picture" width="200" height="200" class = "rounded-full">
+    <img src="{% url 'avatar' intern.avatar %}" alt="Profile Picture" width="200" height="200" class = "rounded-full mx-3 my-3">
     <ul>
-        <li> Name: {{intern.name}} </li>
-        <li> Email: {{intern.email}} </li>
-        <li> Phone Number: {{intern.number}} </li>
-        <li> Role(s): </li>
+        <li class = "text-lg"><a class = "font-bold"> Name:</a> {{intern.name}} </li>
+        <li class = "text-lg"><a class = "font-bold"> Email: </a> {{intern.email}} </li>
+        <li class = "text-lg"><a class = "font-bold"> Phone Number: </a>{{intern.number}} </li>
+        <li class = "text-lg"><a class = "font-bold"> Role(s): </a></li>
         {% if rolestatus %}
-            {% for role in rolestatus%}
-                <ul>
-                    <li> {{role.role}} - {{role.status}} </li>
-                </ul>
-            {% endfor %}
+        <table class = "table-auto">
+        {% for role in rolestatus%}
+                <li><a class="font-semibold text-blue-500 hover:text-blue-700" href="{% url 'role_detail' role.role.id%}"> {{role.role}}</a> - {{role.status}} |
+                    <a class="bg-blue-200 text-black hover:bg-blue-500" href="{% url 'intern_editstatus' intern.id role.id %}">Edit Status</a> |
+                    <a class="bg-blue-200 text-black hover:bg-blue-500"href="{% url 'intern_deletestatus' intern.id role.id %}">Delete Role</a>
+                </li>
+        {% endfor %}
+        </table>
         {% else %}
         <ul> No assigned roles </ul>
         {% endif %}
-    </ul>
+</div>
+<div class = "flex justify-center space-x-6">
+    <a class="bg-gray-300 text-black hover:bg-gray-500" href="{% url 'intern_addstatus' intern.id%}"> Add Role </a>
+    <a class="bg-gray-300 text-black hover:bg-gray-500" href="{% url 'intern_edit' intern.id %}"> Edit Profile </a>
+    <a class="bg-gray-300 text-black hover:bg-gray-500" href="{% url 'intern_delete' intern.id %}"> Delete Profile </a>
 </div>
 {%endblock%}

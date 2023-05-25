@@ -2,6 +2,13 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
+
+STATUSES = (
+    ('Rejected', 'Rejected'),
+    ('Under analysis', 'Under analysis'),
+    ('Approved', 'Approved'),
+)
+
 class Role(models.Model):
     name = models.CharField(max_length=100)
 
@@ -13,7 +20,7 @@ class Role(models.Model):
     
 class Intern(models.Model):
     name = models.CharField(max_length=100)
-    number = models.CharField(max_length=100)
+    number = models.CharField(max_length=15)
     email = models.EmailField(max_length=100)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default.jpg')
 
@@ -24,9 +31,9 @@ class Intern(models.Model):
         return self.name
     
 class RoleStatus(models.Model):
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
     intern = models.ForeignKey(Intern, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, default='Under analysis')
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    status = models.CharField(max_length=14, choices=STATUSES, default='Under analysis')
     def __str__(self):
         return self.role.name + " - " + self.intern.name
 

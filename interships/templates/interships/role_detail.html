@@ -1,22 +1,24 @@
 {% extends 'interships/base.html'%}
 {% load static %}
-{% block head %}
-{% comment %}  {% endcomment %}
-{% endblock %}
 {% block content %}
 <div class ="flex justify-center text-3xl overflow-auto h-1/2">
     <h1> {{role.name}} </h1>
 </div>
-<div class = "flex justify-center items-center object-center">
+<div class = "flex justify-center items-center object-center my-4 text-lg">
 {% if rolestatus %}
+    <ul>
     {% for status in rolestatus%}
-        <ul>
-            <li> <a href = {% url 'intern_detail' status.intern%}>{{status.intern}} </a>- {{status.status}} </li>
-        </ul>
+        <li> <a class="font-semibold text-blue-500 hover:text-blue-700" href = {% url 'intern_detail' status.intern.pk %}>{{status.intern}} </a>- {{status.status}} </li>
     {% endfor %}
+
 {% else %}
     <ul> No interns assigned </ul>
 {% endif %}
 </ul>
+</div>
+<div class = "flex justify-center space-x-6">
+    {% comment %} <a href="{% url 'role_'%}"> Add Intern </a> {% endcomment %}
+    <a class="bg-gray-300 text-black hover:bg-gray-500" href="{% url 'role_edit' role.id %}"> Edit Role </a>
+    <a class="bg-gray-300 text-black hover:bg-gray-500" href="{% url 'role_delete' role.id %}"> Delete Role </a>
 </div>
 {% endblock %}

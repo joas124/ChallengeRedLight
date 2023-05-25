@@ -1,24 +1,34 @@
 {% extends 'interships/base.html' %}
 {% load static %}
-{% comment %} {%block head%}
-    <link rel = "stylesheet" href = "{%static 'homepage.css'%}">
-{%endblock%} {% endcomment %}
-{%block head%}
-    <script src = "{%static 'homepage.js'%}"></script>
-{%endblock%}
 {%block content%}
     <div class = "flex justify-center font-bold text-3xl">
         <h1> Interns </h1>
     </div>
+    
     <div class = "flex justify-center text-xl overflow-auto h-1/2">
     {%if interns%}
-        <ul>
+    <form class = "flex justify-center" role="search" method="get" action"">   
+        {% csrf_token %}
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class = "relative">
+                <input type="search" name="internSearch" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg" placeholder="Search Interns" required>
+                <button type="submit" class="bg-blue-600 absolute right-2.5 bottom-2.5 rounded-lg text-sm px-4">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class = "flex justify-center text-xl">
+        <ul class = "my-4">
             {% for intern in interns %}
-            <li> <a href = "/intern/{{intern.id}}/">{{intern.name}}</a>  -- <button onclick = 'editUser({{intern.id}})'> Edit </button></li>
+            <li> <a class="font-semibold text-blue-500 hover:text-blue-800" href = {% url 'intern_detail' intern.id %}>{{intern.name}}</a></li>
             {% endfor %}
         </ul>
+    </div>
     {%else%}
-        <p> No interns </p>
+        {%if internSearch%}
+        <p class = "my-4"> No interns with the name {{internSearch}} </p>
+        {%else%}
+        <p class = "my-4"> No interns </p>
+        {%endif%}
     {%endif%}
     </div>
     <hr>
@@ -27,13 +37,28 @@
     </div>
     <div class = "flex justify-center text-xl overflow-auto h-1/2">
     {%if roles%}
-        <ul>
+    <form class = "flex justify-center" role="search" method="get" action""> 
+        {% csrf_token %}  
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class = "relative">
+                <input type="search" name="roleSearch" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg" placeholder="Search Roles" required>
+                <button type="submit" class="bg-blue-600 absolute right-2.5 bottom-2.5 rounded-lg text-sm px-4">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class = "flex justify-center text-xl">
+        <ul class = "my-4">
             {% for role in roles %}
-                <li><a href = "/role/{{role.id}}/">{{role.name}}</a></li>
+                <li><a class="font-semibold text-blue-500 hover:text-blue-800" href = "/role/{{role.id}}/">{{role.name}}</a></li>
             {% endfor %}
-        </ul>
+        </ul>   
+    </div>
     {%else%}
-        <p> No roles </p>
+        {%if roleSearch%}
+        <p class = "my-4"> No roles with the name {{roleSearch}} </p>
+        {%else%}
+        <p class = "my-4"> No roles </p>
+        {%endif%}
     {%endif%}
     </div>
     <hr>

@@ -3,16 +3,15 @@
 {%block content%}
     <br>
     <div class = 'flex justify-center items-center object-center'>
-        <h1 class = 'text-2xl justify-center'>{{type}} {{model}}</h1>
+        <h1 class = 'text-2xl justify-center'>Are you sure you want to delete {{type}} "{{name}}"</h1>
     </div>
     <br>
     <div class = 'flex justify-center items-center object-center'>
         <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
             <div class = 'flex justify-center space-x-6'>
                 <a href = {% url 'interns_list'%}> Cancel </a>
-                <button type="submit">Submit</button>
+                <button id = 'submit' type="submit">Delete</button>
             </div>
         </form>
     </div>
